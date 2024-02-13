@@ -14,8 +14,7 @@ let fs = require('fs');
           console.log(err);
             } else {
           console.log('Added to log.');
-            }
-             });
+            };
     
     if (q.pathname.includes('documentation')) 
       {filePath = (__dirname + '/documentation.html');
