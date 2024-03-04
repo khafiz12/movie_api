@@ -7,6 +7,92 @@
 </head>
 <body>
     <p>This API Will Allow Clients To Find Their Favorite Movies</p>
-    
+    <table>
+
+      <thead>
+       <tr>
+         <th>URL</th>
+         <th>HTTP method</th>
+         <th>Request</th>
+         <th>Response</th>
+         <th>High-level description</th>
+       </tr>
+      </thead>
+
+     <tbody>
+        <tr>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all movies.</td>
+          <td>This request will return a json object that holds information about ten movies.</td>
+        </tr>
+        
+          <tr>
+            <td>/movies/:title</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single movie, containing title, genre,description and year movie was filmed. </td>
+            <rd>This request will return information about a given movie that is listed. A client will place the title endpoint in the URl and the server will provide information about that given movies such as year developed, director etc..</rd>
+          </tr>
+
+        <tr>
+          <td>/movie/genre/:genreName</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about a single genre based on type of genre </td>
+          <td>This request will return information about a given genre that is listed. A client will place the genreName endpoint in the URl and the server will provide information about that given genre such as the type of genre such as actions, drama, comedy.</td>
+        </tr>
+
+           <tr>
+            <td>/movies/director/:directorName</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single director, containing director name, bio, birth year, death year.</td>
+            <td>This request will return information about a given director that is listed. A client will place the directorName endpoint in the URl and the server will provide information about that given director such birth date, movies directed and death date if applicable.</td>
+          </tr>
+        
+        <tr>
+           <td>/users</td>
+           <td>POST</td>
+           <td>A JSON object holding data about a new user attempting to register</td> 
+           <td>A JSON object that allows new users to register</td>
+           <td>This request will allow clients to registar their name, id and favoriteMovie</td>
+        </tr>
+
+           <tr>
+            <td>/users/:id</td>
+            <td>PUT</td>
+            <td>A JSON object holding data about the user which needs to be updated</td>
+            <td>A JSON object that allows users to update their user information</td>
+            <td>This URL endpoint will allow a client to update inforamtion about a user such as name, id and favoriteMovies </td>
+           </tr>
+
+        <tr>
+           <td>/users/:id/:movieTitle</td>
+           <td>POST</td>
+           <td>A JSON object holding data about single movie that users can add to their favorite list.</td> 
+           <td>A JSON object that allows users to add movie to their list of favorite movies.</td>
+           <td>This URL endpoint will allow a client to add additional movies to their favoriteMovie lis.t</td>
+        </tr>   
+
+          <tr>
+            <td>/user/:id/:movieTitle</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A JSON object that allows users to delete a movie from their favorite movies list with a text response confirming student deleted movie.</td>
+            <td>This URL endpoint will allow a client to delete a movie from their favoriteMovie list.</td>
+          </tr>
+        
+        <tr>
+            <td>/user/:id</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>Text messge confirming student deregistered successfully.</td>
+            <td>This URL endpoint will allow a client to deregister.</td>
+        </tr>
+     </tbody>
+
+    </table>
 </body>
 </html>
