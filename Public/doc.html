@@ -13,6 +13,7 @@
        <tr>
          <th>URL</th>
          <th>HTTP method</th>
+         <th>Parameters</th>
          <th>Request</th>
          <th>Response</th>
          <th>High-level description</th>
@@ -24,74 +25,92 @@
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about all movies.</td>
-          <td>This request will return a json object that holds information about ten movies.</td>
+          <td>None</td>
+          <td>A JSON object holding data about a list of movies object</td>
+          <td>This request will retrieve information about ten movies.</td>
         </tr>
         
           <tr>
-            <td>/movies/:title</td>
+            <td>/movies/:genre</td>
             <td>GET</td>
+            <td>genre: Genre of the movie</td>
             <td>None</td>
-            <td>A JSON object holding data about a single movie, containing title, genre,description and year movie was filmed. </td>
-            <rd>This request will return information about a given movie that is listed. A client will place the title endpoint in the URl and the server will provide information about that given movies such as year developed, director etc..</rd>
+            <td>A JSON object holding data about a single movie object. </td>
+            <rd>This request will retrieve a list of movies or movie according to their genre.</rd>
+          </tr>
+
+          <tr>
+            <td>/movies/directors/:directorName</td>
+            <td>GET</td>
+            <td>directorName: Name of the director</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single director</td>
+            <td>This request will retrieve movies directed by specified director </td>  
           </tr>
 
         <tr>
-          <td>/movie/genre/:genreName</td>
-          <td>GET</td>
-          <td>None</td>
-          <td>A JSON object holding data about a single genre based on type of genre </td>
-          <td>This request will return information about a given genre that is listed. A client will place the genreName endpoint in the URl and the server will provide information about that given genre such as the type of genre such as actions, drama, comedy.</td>
-        </tr>
-
-           <tr>
-            <td>/movies/director/:directorName</td>
-            <td>GET</td>
-            <td>None</td>
-            <td>A JSON object holding data about a single director, containing director name, bio, birth year, death year.</td>
-            <td>This request will return information about a given director that is listed. A client will place the directorName endpoint in the URl and the server will provide information about that given director such birth date, movies directed and death date if applicable.</td>
-          </tr>
-        
-        <tr>
-           <td>/users</td>
+           <td>/User</td>
            <td>POST</td>
+           <td>None</td>
            <td>A JSON object holding data about a new user attempting to register</td> 
-           <td>A JSON object that allows new users to register</td>
+           <td>A JSON object about a newly created user</td>
            <td>This request will allow clients to registar their name, id and favoriteMovie</td>
         </tr>
 
            <tr>
-            <td>/users/:id</td>
-            <td>PUT</td>
-            <td>A JSON object holding data about the user which needs to be updated</td>
-            <td>A JSON object that allows users to update their user information</td>
-            <td>This URL endpoint will allow a client to update inforamtion about a user such as name, id and favoriteMovies </td>
+            <td>/User</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object with a list of users</td>
+            <td>The request retrieves user information by username</td>
            </tr>
+           
+           <tr>
+            <td>/User/:Username</td>
+            <td>GET</td>
+            <td>Username: Username of the user</td>
+            <td>None</td>
+            <td>A JSON object with the specified username</td>
+            <td>This request retrieves user information by username </td>          
+          </tr>
 
         <tr>
-           <td>/users/:id/:movieTitle</td>
-           <td>POST</td>
-           <td>A JSON object holding data about single movie that users can add to their favorite list.</td> 
-           <td>A JSON object that allows users to add movie to their list of favorite movies.</td>
-           <td>This URL endpoint will allow a client to add additional movies to their favoriteMovie lis.t</td>
+           <td>/Users/:Username:</td>
+           <td>PUT</td>
+           <td>Username: Username of the user</td>
+           <td>A JSON object holding updated keys and values about single user.</td> 
+           <td>A JSON object holding updated user information.</td>
+           <td>Updated user account information</td>
         </tr>   
 
           <tr>
-            <td>/user/:id/:movieTitle</td>
-            <td>DELETE</td>
+            <td>/User/:Username/movies/MovieID</td>
+            <td>POST</td>
+            <td>Username: Username of the user. MovieID: ID of the movie to be added</td>
             <td>None</td>
-            <td>A JSON object that allows users to delete a movie from their favorite movies list with a text response confirming student deleted movie.</td>
-            <td>This URL endpoint will allow a client to delete a movie from their favoriteMovie list.</td>
+            <td>A JSON object with updated favoritemovie.</td>
+            <td>Adds a movie to the users list of favorite movies.</td>
           </tr>
         
         <tr>
-            <td>/user/:id</td>
+            <td>/User/:Username/movies/:MovieID</td>
             <td>DELETE</td>
+            <td>Username: Username of the user. MovieID: ID of the movie to be deleted</td>
             <td>None</td>
-            <td>Text messge confirming student deregistered successfully.</td>
-            <td>This URL endpoint will allow a client to deregister.</td>
+            <td>A JSON object with the removed movie.</td>
+            <td>Removes a movie from the users list of favoritemovies.</td>
         </tr>
-     </tbody>
+    
+        <tr>
+          <td>/users/:Username</td>
+          <td>DELETE</td>
+          <td>Username: Username of the user</td>
+          <td>None</td>
+          <td>Sucess message if user account was removed or error message if user was not found</td>
+          <td>Deletes a user account</td>
+        </tr>
+      </tbody>
 
     </table>
 </body>
