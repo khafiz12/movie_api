@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Movie Listing</title>
+</head>
+<body>
+    <p>This API Will Allow Clients To Find Their Favorite Movies</p>
+    <table>
+
+      <thead>
+       <tr>
+         <th>URL</th>
+         <th>HTTP method</th>
+         <th>Parameters</th>
+         <th>Request</th>
+         <th>Response</th>
+         <th>High-level description</th>
+       </tr>
+      </thead>
+
+     <tbody>
+        <tr>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>None</td>
+          <td>A JSON object holding data about a list of movies object</td>
+          <td>This request will retrieve information about ten movies.</td>
+        </tr>
+        
+          <tr>
+            <td>/movies/:genre</td>
+            <td>GET</td>
+            <td>genre: Genre of the movie</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single movie object. </td>
+            <rd>This request will retrieve a list of movies or movie according to their genre.</rd>
+          </tr>
+
+          <tr>
+            <td>/movies/directors/:directorName</td>
+            <td>GET</td>
+            <td>directorName: Name of the director</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single director</td>
+            <td>This request will retrieve movies directed by specified director </td>  
+          </tr>
+
+        <tr>
+           <td>/User</td>
+           <td>POST</td>
+           <td>None</td>
+           <td>A JSON object holding data about a new user attempting to register</td> 
+           <td>A JSON object about a newly created user</td>
+           <td>This request will allow clients to registar their name, id and favoriteMovie</td>
+        </tr>
+
+           <tr>
+            <td>/User</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object with a list of users</td>
+            <td>The request retrieves user information by username</td>
+           </tr>
+           
+           <tr>
+            <td>/User/:Username</td>
+            <td>GET</td>
+            <td>Username: Username of the user</td>
+            <td>None</td>
+            <td>A JSON object with the specified username</td>
+            <td>This request retrieves user information by username </td>          
+          </tr>
+
+        <tr>
+           <td>/Users/:Username:</td>
+           <td>PUT</td>
+           <td>Username: Username of the user</td>
+           <td>A JSON object holding updated keys and values about single user.</td> 
+           <td>A JSON object holding updated user information.</td>
+           <td>Updated user account information</td>
+        </tr>   
+
+          <tr>
+            <td>/User/:Username/movies/MovieID</td>
+            <td>POST</td>
+            <td>Username: Username of the user. MovieID: ID of the movie to be added</td>
+            <td>None</td>
+            <td>A JSON object with updated favoritemovie.</td>
+            <td>Adds a movie to the users list of favorite movies.</td>
+          </tr>
+        
+        <tr>
+            <td>/User/:Username/movies/:MovieID</td>
+            <td>DELETE</td>
+            <td>Username: Username of the user. MovieID: ID of the movie to be deleted</td>
+            <td>None</td>
+            <td>A JSON object with the removed movie.</td>
+            <td>Removes a movie from the users list of favoritemovies.</td>
+        </tr>
+    
+        <tr>
+          <td>/users/:Username</td>
+          <td>DELETE</td>
+          <td>Username: Username of the user</td>
+          <td>None</td>
+          <td>Sucess message if user account was removed or error message if user was not found</td>
+          <td>Deletes a user account</td>
+        </tr>
+      </tbody>
+
+    </table>
+</body>
+</html>
