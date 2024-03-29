@@ -1,7 +1,9 @@
 const jwtSecret = 'your_jwt_secret';
 const jwt = require('jsonwebtoken'),
 passport = require('passport');
-require('./passport');
+const { model } = require('mongoose');//
+require('./passport.js');
+const User = require('./model.js').User;//
 
 let generateJWTToken = (user) => {
     return jwt.sign(user, jwtSecret, { 
@@ -12,7 +14,7 @@ let generateJWTToken = (user) => {
    };
 
 module.exports = (router) => {
-    router.post('/login', (req,res) => {
+    router.post('/login', (req,res) => { 
         passport.authenticate('local', { session: false},
         (error, user, info) => {
             if (error || !user) {

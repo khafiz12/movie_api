@@ -1,13 +1,16 @@
 const express = require('express');
 const app = express();  
 const passport= require('passport');
-require('./passport');
+require('./passport.js');
 const mongoose = require('mongoose');
-const Models = require('./model.js')
+const Models = require('./model.js');
 const morganRequire = require('morgan');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
-let auth = require('./auth')(app);
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const {check, validationResult} = require('express-validator');
+let auth = require('./auth.js')(app);
 //Initialize Passport
 
 //Middle wear//
@@ -17,7 +20,9 @@ app.use(bodyParser.json());
 //imports auth.js file into your project//
 // apply morgan middlewear//
 app.use(morganRequire('common'));
-app.use(bodyParser.urlencoded({extended:true})); 
+app.use(bodyParser.urlencoded({extended:true}));
+//app.use (cors()); allows use of CORS in application//
+app.use(cors());//This might need to go immediatly after const cors = require cors//
 //this allows mongoose to connect to database(mongodb)//
 mongoose.connect('mongodb://localhost:27017/myflix',)
   .then(() => {
@@ -92,13 +97,27 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
 });
 
 //CREATE this allow new users to register//
-app.post ('/User', async (req,res) => { 
+app.post ('/User', 
+          [ check ('Username', 'Username is require').isLength({min:5}),
+            check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+            check ('Password', 'Password is required').not().isEmpty(),
+            check('Email', 'Email does not appear to be valid').isEmail(), 
+          ],async (req,res) => { 
+      
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) { 
+          return res.status(422).json({errors: errors.array()});
+        }  
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({'User': req.body.Username})
-   .then((user) => {if (user) {return res.status(400).send(req.body.Username + 'already exist');
- } else {
+   .then((user) => 
+   {if (user)
+     {return res.status(400).send(req.body.Username + 'already exist');
+    } else {
     Users.create({
        Username:req.body.Username,
-       Password: req.body.Password,
+       Password: hashedPassword,
        Email: req.body.Email,
        Birthday: req.body.Birthday
     })
@@ -117,7 +136,18 @@ app.post ('/User', async (req,res) => {
  
 
 //UPDATE this allows a user to update their user account//
-app.put('/User/:Username', passport.authenticate ('jwt', {session:false}), async (req,res) => { 
+app.put('/User/:Username', 
+[ check ('Username', 'Username is require').isLength({min:5}),
+check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+check ('Password', 'Password is required').not().isEmpty(),
+check('Email', 'Email does not appear to be valid').isEmail(), 
+], passport.authenticate ('jwt', {session:false}), async (req,res) => { 
+  
+  let errors = validationResult(req);
+      if (!errors.isEmpty()) { 
+        return res.status(422).json({errors: errors.array()});
+        }  
+
   if(req.user.Username !== req.params.Username) {
      return res.status(400).send('Permission denied');
   }

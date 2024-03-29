@@ -1,4 +1,7 @@
-const mongoose = require ("mongoose");
+//require mongoose to tranlate mongodb data to javascript//
+const mongoose = require ('mongoose');
+//require bcrypt module to hash User username and password// 
+const bcrypt = require('bcrypt');
 //const { __esModule } = require("uuid");// Not sure why this was auto added. 
 // this is the model used for movies collection// 
 let movieSchema = mongoose.Schema({ 
@@ -35,6 +38,14 @@ let movieSchema = mongoose.Schema({
     Favoritemovies:[{type: mongoose.Schema.Types.ObjectId, ref:'movie' }] 
 
   });
+
+  userSchema.statics.hashPassword = (password) => {
+   return bcrypt.hashSync(password, 10);
+  };
+
+  userSchema.methods.validatePassword = function (password) {
+   return bcrypt.compareSync(password, this.Password);
+  };
 
   let Movie = mongoose.model('Movie', movieSchema);
 
