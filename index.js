@@ -17,7 +17,6 @@ let auth = require('./auth.js')(app);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json());
-//imports auth.js file into your project//
 // apply morgan middlewear//
 app.use(morganRequire('common'));
 app.use(bodyParser.urlencoded({extended:true}));
