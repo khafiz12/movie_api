@@ -1,6 +1,7 @@
 const jwtSecret = 'your_jwt_secret';
 const jwt = require('jsonwebtoken');
 passport = require('passport');
+const bcrypt = require('bcrypt');
 //const{model} = require('mongoose');//
 require ('./passport.js');
 //const User = require('./model.js').User; //
