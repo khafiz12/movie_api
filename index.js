@@ -24,12 +24,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 //app.use (cors()); allows use of CORS in application//
 app.use(cors());//This might need to go immediatly after const cors = require cors//
 //this allows mongoose to connect to database(mongodb)//
-mongoose.connect('mongodb://localhost:27017/myflix',)
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((error) => {console.error('Error connecting to MongoDB', error)
-  });
+//mongoose.connect('mongodb://localhost:27017/myflix',)
+mongoose.connect(process.env.CONNECTION_URI, {
+ useNewUrlParser:true, useUnifiedTopology: true });
+
+//  .then(() => {
+//    console.log('Connected to MongoDB');
+//  })
+//  .catch((error) => {console.error('Error connecting to MongoDB', error)
+//  });
 
 //Routes//
 const Movies = Models.Movie;
