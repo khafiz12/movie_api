@@ -21,7 +21,8 @@ app.use(bodyParser.json());
 app.use(morganRequire('common'));
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use (cors()); allows use of CORS in application//
-app.use(cors());//This might need to go immediatly after const cors = require cors//
+app.use(cors()); 
+//This might need to go immediatly after const cors = require cors//
 //this allows mongoose to connect to database(mongodb)//
 //mongoose.connect('mongodb://localhost:27017/myflix',)
 mongoose.connect(process.env.CONNECTION_URI, {
