@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 require('./passport.js');
 const User = require('./model.js').User;//
 
+//Produce JWT Token//
 let generateJWTToken = (user) => {
     return jwt.sign(user, jwtSecret, { 
         subject: user.Username, 
@@ -14,6 +15,7 @@ let generateJWTToken = (user) => {
     });
    };
 
+//
 module.exports = (router) => {
     router.post('/login', (req,res) => { 
         passport.authenticate('local', { session: false},

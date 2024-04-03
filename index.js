@@ -22,24 +22,13 @@ app.use(morganRequire('common'));
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use (cors()); allows use of CORS in application//
 app.use(cors()); 
-//This might need to go immediatly after const cors = require cors//
 //this allows mongoose to connect to database(mongodb)//
-//mongoose.connect('mongodb://localhost:27017/myflix',)
 mongoose.connect(process.env.CONNECTION_URI, {
  useNewUrlParser:true, useUnifiedTopology: true });
 
-//  .then(() => {
-//    console.log('Connected to MongoDB');
-//  })
-//  .catch((error) => {console.error('Error connecting to MongoDB', error)
-//  });
-
-//Routes//
+//Routes to movies and users//
 const Movies = Models.Movie;
 const Users = Models.User;
-
-
-
 
 //READ welcome to my Top 10 movies//
 app.get('/', (req, res) => { 
@@ -102,9 +91,9 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
 //CREATE this allow new users to register//
 app.post ('/User', 
           [ check ('Username', 'Username is require').isLength({min:5}),
-            check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
-            check ('Password', 'Password is required').not().isEmpty(),
-            check('Email', 'Email does not appear to be valid').isEmail(), 
+            check( 'Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+            check( 'Password', 'Password is required').not().isEmpty(),
+            check( 'Email', 'Email does not appear to be valid').isEmail(), 
           ],async (req,res) => { 
       
         let errors = validationResult(req);
@@ -137,7 +126,6 @@ app.post ('/User',
     });
  });
  
-
 //UPDATE this allows a user to update their user account//
 app.put('/User/:Username', 
 [ check ('Username', 'Username is require').isLength({min:5}),
@@ -212,11 +200,6 @@ app.delete ('/User/:Username', passport.authenticate('jwt', {session:false}), as
      .catch(err=> {console.error(err); res.status(500).send('Error' + err);
     });
   });
-
-
-
-
-
 
 app.get ('/doc.html', (req,res) => {
   res.sendFile('Public/doc.html', {root:_dirname});

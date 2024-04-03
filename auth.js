@@ -2,11 +2,9 @@ const jwtSecret = 'your_jwt_secret';
 const jwt = require('jsonwebtoken');
 passport = require('passport');
 const bcrypt = require('bcrypt');
-//const{model} = require('mongoose');//
 require ('./passport.js');
-//const User = require('./model.js').User; //
 
-
+//produce JWT Token//
 let generateJWTToken = (user) => {
     return jwt.sign(user, jwtSecret, { 
         subject: user.Username, 
@@ -14,7 +12,8 @@ let generateJWTToken = (user) => {
         algorithm: 'HS256'
     });
    };
-//hashpassword goes somewhere in the code below//
+
+//User login//
 module.exports = (router) => {
     router.post('/login', (req,res) => { 
         passport.authenticate('local', { session: false},

@@ -2,7 +2,6 @@
 const mongoose = require ('mongoose');
 //require bcrypt module to hash User username and password// 
 const bcrypt = require('bcrypt');
-//const { __esModule } = require("uuid");// Not sure why this was auto added. 
 // this is the model used for movies collection// 
 let movieSchema = mongoose.Schema({ 
      title:{type: String, required: true},
