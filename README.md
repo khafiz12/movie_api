@@ -1,4 +1,5 @@
 MyFlix Movie API
+
 Welcome to the MyFlix Movie API! This API serves as the backend for a movie application where users can access information about movies, manage their user profiles, and create lists of favorite movies.
 
 Features
