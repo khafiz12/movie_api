@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken'),
 passport = require('passport');
 const { model } = require('mongoose');//
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 require('./passport.js');
 const User = require('./model.js').User;//
 
@@ -17,6 +18,7 @@ let generateJWTToken = (user) => {
 
 //
 module.exports = (router) => {
+    router.use(cors());
     router.post('/login', (req,res) => { 
         passport.authenticate('local', { session: false},
         (error, user, info) => {
