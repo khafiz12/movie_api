@@ -19,16 +19,22 @@ let generateJWTToken = (user) => {
 //
 module.exports = (router) => {
     router.use(cors());
-    router.post('/login', passport.authenticate('local', { session: false}), 
-    (req,res) => { if(!req.user) {
-        return res.status(400).json({
-            message:"Something is not right with code",
-            user: req.user
-        });
-     } 
-    
-      let token = generateJWTToken(req.user.toJSON());
-      return res.json({user: req.user, token});
-  }); 
-       
-}
+    router.post('/login', (req,res) => { 
+        passport.authenticate('local', { session: false},
+        (error, user, info) => {
+            if (error || !user) {
+                return res.status(400).json({
+                    message: 'Something is not right',
+                    user:user
+                });
+               } 
+           req.login(user,{ session:false}, (error) => {
+             if (error){
+                res.send(error);
+             }
+             let token = generateJWTToken(user.toJSON());
+             return res.json({user, token});
+           }); 
+         }) (req,res);
+       });
+      }
