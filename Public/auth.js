@@ -22,15 +22,18 @@ module.exports = (router) => {
     router.post('/login', (req,res) => { 
         passport.authenticate('local', { session: false },
         (error, user, info) => {
-            if (error || !user) {
-                return res.status(400).json({
-                    message: 'Something is not right',
-                    user:user
-                });
+            if (error) {
+                console.error('Error during authentication:', error);
+                return res.status(500).json({ message: 'Internal server error'});
                } 
+            if(!user){ 
+              console.error('User not found');
+              return res.status(401).json({ message: 'Unauthorized'});  
+            }
            req.login(user,{ session:false}, (error) => {
-             if (error){
-                res.send(error);
+             if (error){ 
+                console.error('Error during login:', error);
+                return res.status(500).json({ message:'Internal server error'});
              }
              let token = generateJWTToken(user.toJSON());
              return res.json({user, token});
