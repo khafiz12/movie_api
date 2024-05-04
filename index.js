@@ -89,28 +89,6 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
    });
 });
 
-
-app.post('/login', passport.authenticate('jwt', { session: false}), async (req,res) => { 
-try {
-  const user = req.user;
-   if (!user) {
-    return res.status(400).json({
-      message: 'Something is not right',
-      user:user
-   });
-}
-   req.login(user,{ session:false}, (error) => {
-    if (error){
-    res.send(error);
-        } 
-      });
-}
-catch (error) {
-  console.error('Error occured during login:', error);
-  return res.status(500).json({ message: 'Internal server error'});
-   }
-  });
-
 //CREATE this allow new users to register//
 app.post ('/User', 
 [ check ('Username', 'Username is require').isLength({min:5}),
