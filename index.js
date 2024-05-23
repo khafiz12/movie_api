@@ -203,19 +203,6 @@ app.delete ('/User/:Username', passport.authenticate('jwt', {session:false}), as
     });
 });
 
-const allowedOrigins = ['http://localhost:1234']; 
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin) || !origin) {
-       callback(null, true);
-    } else{ 
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
-app.use(cors(corsOptions));
-
 app.get ('/doc.html', (req,res) => {
   res.sendFile('Public/doc.html', {root:_dirname});
 });
