@@ -19,7 +19,7 @@ let generateJWTToken = (user) => {
 //
 module.exports = (router) => {
     router.post('/login', (req,res) => { 
-        passport.authenticate('jwt', { session: false },
+        passport.authenticate('local', { session: false },
         (error, user, info) => {
             if (error || !user) {
                 return res.status(400).json({
