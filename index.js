@@ -89,6 +89,21 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
    });
 });
 
+// READ: Get a movie by its ID
+app.get('/movies/id/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Movies.findById(req.params.MovieID)
+    .then((movie) => {
+      if (!movie) {
+        return res.status(404).send('Movie not found');
+      }
+      res.json(movie);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
+
 //CREATE this allow new users to register//
 app.post ('/User', 
 [ check ('Username', 'Username is require').isLength({min:5}),
