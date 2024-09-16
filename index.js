@@ -90,7 +90,7 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
 });
 
 // READ: Get a movie by its ID
-app.get('/movies/id/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findById(req.params.MovieID)
     .then((movie) => {
       if (!movie) {
