@@ -30,6 +30,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 //Routes to movies and users//
 const Movies = Models.Movie;
 const Users = Models.User;
+const ObjectId = require('mongoose').Types.ObjectId;
 
 //READ welcome to my Top 10 movies//
 app.get('/', (req, res) => { 
@@ -91,6 +92,10 @@ app.get('/User/:Username', passport.authenticate ('jwt', {session:false}), async
 
 // READ: Get a movie by its ID
 app.get('/movies/id/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (!ObjectId.isValid(req.params.MovieID)) {
+    return res.status(400).send('Invalid Movie ID format');
+  }
+  
   await Movies.findById(req.params.MovieID)
     .then((movie) => {
       if (!movie) {
@@ -99,8 +104,8 @@ app.get('/movies/id/:MovieID', passport.authenticate('jwt', { session: false }),
       res.json(movie);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
+      console.error('Error fetching movie by ID:', error);
+      res.status(500).send('Error: ' + error.message);
     });
 });
 
